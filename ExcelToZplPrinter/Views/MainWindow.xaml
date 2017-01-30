@@ -7,7 +7,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:ExcelToZplPrinter.ViewModels"
         mc:Ignorable="d"
-        Title="Excel to Zpl" Height="340.379" Width="702.333">
+        Title="Excel to Zpl" Height="340.379" Width="702.333" Name="Main" >
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
@@ -42,8 +42,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Arquivos" Grid.Row="0" Grid.Column="0"/>
         <Button Command="{Binding FindFolder}" Content="Localizar" HorizontalAlignment="Right" Margin="2" Grid.Row="0" Grid.Column="0"/>
@@ -69,7 +69,6 @@
         </Canvas>
        
         <Label Content="{Binding CurrentFolder}" VerticalAlignment="Bottom" Foreground="{DynamicResource IdealForegroundColorBrush}" Background="{DynamicResource AccentBaseColorBrush}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="6" Margin="0"/>
-     
-
     </Grid>
+   
 </controls:MetroWindow>

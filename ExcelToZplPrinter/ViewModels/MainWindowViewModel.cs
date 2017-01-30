@@ -5,8 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using ExcelToZplPrinter.Commands;
+using ExcelToZplPrinter.Services;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -112,10 +116,19 @@ namespace ExcelToZplPrinter.ViewModels
                 OnPropertyChanged();
             }
         }
+       
 
         public MainWindowViewModel()
         {
             FindFolder = new RelayCommand(_findFolderLocation,_canFindFolder);
+            DispatcherTimer welcomeMessageCaller = new DispatcherTimer(TimeSpan.Zero, DispatcherPriority.ApplicationIdle, ShowWelcomeMessage,
+                Dispatcher.CurrentDispatcher);
+        }
+
+        private void ShowWelcomeMessage(object sender, EventArgs e)
+        {
+            DialogService.ShowMessage("Main", "", "Bem, vindo", MessageDialogStyle.Affirmative);
+            ((DispatcherTimer)sender).Stop();
         }
 
         private bool _canFindFolder(object arg)
@@ -125,15 +138,18 @@ namespace ExcelToZplPrinter.ViewModels
 
         private void _findFolderLocation(object obj)
         {
+         
             CommonOpenFileDialog fileDialog = new CommonOpenFileDialog();
             fileDialog.Title = "Selecione a Pasta";
             fileDialog.IsFolderPicker = true;
             fileDialog.Multiselect = false;
             fileDialog.InitialDirectory = Environment.SpecialFolder.MyComputer.ToString();
+            FindFolderDialogOpen = true;
             if (fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 CurrentFolder = fileDialog.FileName;
             }
+            FindFolderDialogOpen = false;
 
         }
 
