@@ -3,5 +3,5 @@ This program uses data from excel sheets to create Zpl labels.
 
 
 # Nuget Packets
-MahApps.Metro
+MahApps.Metro <br>
 Windows7ApiCorePack
